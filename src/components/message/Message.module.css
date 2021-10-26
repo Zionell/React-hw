@@ -1,0 +1,14 @@
+.wrapp {
+
+}
+
+.message {
+    font-size: 76px;
+    color: #61dafb;
+    transition: all .7s ease-out;
+}
+
+.message:hover {
+    transform: scale(1.5);
+    color: #F5FFFA;
+}
