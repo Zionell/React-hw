@@ -1,9 +1,14 @@
-import React from "react";
-import style from "./Message.module.css"
-export const Message=({message})=>{
-return(
-    <div className={style.wrapp}>
-        <h1 className={style.message}>{message}</h1>
-    </div>
-)
+import React  from "react";
+import "./Message.scss"
+
+export const Message = ({messages}) => {
+    const messageTemplate = messages.map(message => {
+        return (
+            <p className={message.author === "bot" ? "bot" : "user" } key={message.text}>{message.text}</p>)
+    });
+    return (
+            <div className="messages castom__scroll">
+                {messageTemplate}
+            </div>
+    )
 }
