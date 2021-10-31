@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 5px;
   padding: 20px 10px;
+  transition: all .4s ease-out;
 }
 
 .castom__scroll {
@@ -39,7 +40,7 @@
 
 .castom__scroll::-webkit-scrollbar-thumb {
   /* 5 - ползунок */
-  background:#0275B1;
+  background: #0275B1;
   border-radius: 10px;
   height: 20px;
   width: 10px;

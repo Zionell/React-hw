@@ -1,6 +1,7 @@
 .messages {
   display: flex;
   flex-direction: column;
+  transition: all .4s ease-out;
 
   &__input {
     border-top: 1px solid #000;

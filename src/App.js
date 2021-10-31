@@ -23,15 +23,20 @@ function App() {
             }, 1000)
     }, [messageList]);
 
+    const [changeClass, setChanhgeClass] = useState(true)
+
+    const handleClick = () => {
+        setChanhgeClass(prevValue => !prevValue)
+    }
 
     return (
         <div className="App">
             <div className="border">
-                <div className="wrapp">
-                    <Message messages={messageList}/>
-                    <Form click={updateMessageList}/>
+                <div className={changeClass ? "wrapp" : "block"}>
+                    {changeClass && <Message messages={messageList}/>}
+                    {changeClass && <Form click={updateMessageList}/>}
                 </div>
-                <div className="circle"></div>
+                <div className="circle" onClick={handleClick}></div>
             </div>
         </div>
     );
