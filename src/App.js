@@ -31,6 +31,7 @@ function App() {
                     <Message messages={messageList}/>
                     <Form click={updateMessageList}/>
                 </div>
+                <div className="circle"></div>
             </div>
         </div>
     );
