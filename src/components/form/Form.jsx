@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import "./Form.scss"
 
-export const Form = ({click}) => {
+export const Form = ({onSend}) => {
 
     const [messageValue, setMessageValue] = useState('');
 
@@ -16,7 +16,7 @@ export const Form = ({click}) => {
 
     const handlerClick = event => {
         event.preventDefault();
-        click(newMessage)
+        onSend(newMessage)
         setMessageValue('')
     }
     return (

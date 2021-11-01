@@ -16,17 +16,27 @@ function App() {
         author: "bot"
     }
 
+    const timeOut = () => {
+        setTimeout(() => {
+            updateMessageList(newBotMessage)
+        }, 1000)
+    }
+
     useEffect(() => {
         if (messageList.length > 0 && messageList[messageList.length - 1].author === "user")
-            setTimeout(() => {
-                updateMessageList(newBotMessage)
-            }, 1000)
+            timeOut()
     }, [messageList]);
 
-    const [changeClass, setChanhgeClass] = useState(true)
+    useEffect(()=>{
+        return ()=>{
+            clearTimeout(timeOut())
+        }
+    })
+
+    const [changeClass, setChangeClass] = useState(true)
 
     const handleClick = () => {
-        setChanhgeClass(prevValue => !prevValue)
+        setChangeClass(prevValue => !prevValue)
     }
 
     return (
@@ -34,7 +44,7 @@ function App() {
             <div className="border">
                 <div className={changeClass ? "wrapp" : "block"}>
                     {changeClass && <Message messages={messageList}/>}
-                    {changeClass && <Form click={updateMessageList}/>}
+                    {changeClass && <Form onSend={updateMessageList}/>}
                 </div>
                 <div className="circle" onClick={handleClick}></div>
             </div>
