@@ -1,6 +1,8 @@
 .messages {
   display: flex;
   flex-direction: column;
+  flex-basis: 100%;
+  width: 100%;
   gap: 5px;
   padding: 20px 10px;
   transition: all .4s ease-out;

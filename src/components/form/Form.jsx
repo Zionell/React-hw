@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./Form.scss"
 import {v4 as uuidv4} from 'uuid';
+import {Button, TextField} from "@mui/material";
 
 export const Form = ({onSend}) => {
 
@@ -21,10 +22,17 @@ export const Form = ({onSend}) => {
         onSend(newMessage)
         setMessageValue('')
     }
+
+    const inputRef=useRef()
+
+    useEffect(() => {
+        inputRef.current?.focus();
+    }, []);
+
     return (
         <form className="messages__input" onSubmit={handlerClick}>
-            <input type="text" value={messageValue} onChange={handleChange} placeholder="Написать"/>
-            <button type="submit">
+            <TextField inputRef={inputRef} id="outlined-basic" fullWidth  label="Написать" value={messageValue} onChange={handleChange} variant="standard" />
+            <Button variant="contained" type="submit">
                 <svg
                     width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect y="6.10352e-05" width="32" height="32" rx="4"/>
@@ -32,7 +40,7 @@ export const Form = ({onSend}) => {
                     <path d="M21.6668 10.3334L17.0002 23.6667L14.3335 17.6667L8.3335 15L21.6668 10.3334Z"
                     />
                 </svg>
-            </button>
+            </Button>
         </form>
     )
 }
