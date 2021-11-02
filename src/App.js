@@ -2,6 +2,13 @@ import './App.css';
 import {Message} from "./components/message/Message";
 import {useEffect, useState} from "react";
 import {Form} from "./components/form/Form";
+import {v4 as uuidv4} from 'uuid';
+
+const newBotMessage = {
+    text: "Hello",
+    author: "bot",
+    id: uuidv4()
+}
 
 function App() {
 
@@ -11,27 +18,18 @@ function App() {
         setMessageList(messageList => [...messageList, newMessage])
     }
 
-    const newBotMessage = {
-        text: "Hello",
-        author: "bot"
-    }
-
-    const timeOut = () => {
-        setTimeout(() => {
-            updateMessageList(newBotMessage)
-        }, 1000)
-    }
-
     useEffect(() => {
-        if (messageList.length > 0 && messageList[messageList.length - 1].author === "user")
-            timeOut()
+        if (messageList.length > 0 && messageList[messageList.length - 1].author === "user") {
+            const timeOut = setTimeout(() => {
+                updateMessageList(newBotMessage)
+            }, 1000)
+
+            return () => {
+                clearTimeout(timeOut)
+            }
+        }
     }, [messageList]);
 
-    useEffect(()=>{
-        return ()=>{
-            clearTimeout(timeOut())
-        }
-    })
 
     const [changeClass, setChangeClass] = useState(true)
 
@@ -46,7 +44,7 @@ function App() {
                     {changeClass && <Message messages={messageList}/>}
                     {changeClass && <Form onSend={updateMessageList}/>}
                 </div>
-                <div className="circle" onClick={handleClick}></div>
+                <div className="circle" onClick={handleClick}/>
             </div>
         </div>
     );

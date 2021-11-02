@@ -1,5 +1,6 @@
-import React, { useState} from "react";
+import React, {useState} from "react";
 import "./Form.scss"
+import {v4 as uuidv4} from 'uuid';
 
 export const Form = ({onSend}) => {
 
@@ -12,6 +13,7 @@ export const Form = ({onSend}) => {
     const newMessage = {
         text: messageValue,
         author: "user",
+        id: uuidv4()
     }
 
     const handlerClick = event => {
