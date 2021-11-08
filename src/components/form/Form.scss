@@ -8,6 +8,7 @@
     display: flex;
     align-items: center;
     padding: 10px;
+    width: 100%;
 
     input {
       flex-grow: 1;
@@ -26,21 +27,17 @@
         svg{
           transform: scale(1.1);
         }
-        rect {
-          fill: #02669b;
+        path {
+          stroke: #fff;
         }
       }
     }
 
     svg {
       transition: all .3s linear;
-      rect {
-        fill: #0077B5;
-        transition: all .3s linear;
-      }
 
       path {
-        stroke: white;
+        stroke: #0077B5;
         stroke-linecap: round;
         stroke-linejoin: round;
       }
