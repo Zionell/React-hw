@@ -1,0 +1,12 @@
+.dialog {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+
+  &__header {
+    color: #000;
+    background: #5d9cec;
+    padding: 10px;
+  }
+}

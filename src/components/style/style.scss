@@ -1,0 +1,89 @@
+.castom__scroll {
+  overflow: auto;
+  scrollbar-color: #282c34;
+  scrollbar-width: thin;
+  max-height: 646px
+}
+
+.castom__scroll::-webkit-scrollbar {
+  /* 1 - скроллбар */
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background: #9cd5f8;
+  width: 10px;
+}
+
+.castom__scroll::-webkit-scrollbar-button {
+  /* 2 - кнопка */
+}
+
+.castom__scroll::-webkit-scrollbar-track {
+  /* 3 - трек */
+  border-radius: 10px;
+  border: 0.6px solid grey;
+}
+
+.castom__scroll::-webkit-scrollbar-track-piece {
+  /* 4 - видимая часть трека */
+}
+
+.castom__scroll::-webkit-scrollbar-thumb {
+  /* 5 - ползунок */
+  background: #0275B1;
+  border-radius: 10px;
+  height: 20px;
+  width: 10px;
+}
+
+.error {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+
+  h3 {
+    color: #ff0000;
+  }
+
+  a {
+    text-decoration: none;
+    color: #ff0000;
+    background: #fff;
+    border-radius: 10px;
+    padding: 5px;
+    grid-column: 2/3;
+    grid-row: 2/5;
+    transition: .5s ease-out;
+
+    &:hover {
+      color: #fff;
+      background: #ff0000;
+    }
+  }
+}
+
+.add__user {
+  font-size: 30px;
+  font-weight: 900;
+  color: #000;
+  transition: .2s ease-out;
+  position: absolute;
+  right: 10%;
+  bottom: 15%;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  border: none;
+  background: #2186bb;
+
+  &:hover {
+    transform: scale(1.3);
+    background: #00a6ff;;
+  }
+
+}

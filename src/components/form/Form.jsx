@@ -21,6 +21,7 @@ export const Form = ({onSend}) => {
         event.preventDefault();
         onSend(newMessage)
         setMessageValue('')
+        inputRef.current?.focus();
     }
 
     const inputRef=useRef()

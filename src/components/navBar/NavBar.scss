@@ -1,0 +1,29 @@
+.nav {
+  padding: 10px 0;
+  background: aliceblue;
+
+  &__list {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+  &__item{
+    list-style: none;
+  }
+
+  &__link{
+    svg{
+      fill:#0275b1;
+    }
+    &:hover{
+      svg{
+        filter: drop-shadow(0 0 5px rgba(2, 117, 177, 0.5));
+      }
+    }
+  }
+}
+.active{
+  svg{
+    fill: #00a6ff;
+  }
+}
