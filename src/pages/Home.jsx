@@ -1,35 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {ChatsList} from "../components/chatsList/ChatsList";
+import {useDispatch, useSelector} from "react-redux"
+import {actionUsers, REMOVE_USERS_ACTION} from "../store/profile/actions";
 
 export const Home = () => {
-    const [users, setUsers] = useState([])
-
-    useEffect(() => {
-        let isMounted = true;
-        const fetchData = async () => {
-            try {
-                const response = await fetch("https://jsonplaceholder.typicode.com/users");
-                const result = await response.json();
-                if (isMounted)
-                    setUsers(result)
-            } catch (e) {
-                console.error(e.message)
-            }
-        };
-        fetchData();
-        return () => {
-            isMounted = false
-        }
-    }, [])
+    const users = useSelector((store) => store.users);
+    const dispatch = useDispatch();
 
     const removeUser = (id) => {
-        setUsers(users => users.filter(user => user.id !== id ? user : ''))
+        dispatch(actionUsers(REMOVE_USERS_ACTION, id))
     }
-
 
     return (
         <div className="home castom__scroll">
-            <ChatsList remove={removeUser} users={users}/>
+            <ChatsList remove={removeUser} users={users.filter(user => user.id !== 0)}/>
         </div>
     );
 };
