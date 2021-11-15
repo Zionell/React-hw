@@ -1,51 +1,13 @@
 .messages {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   flex-basis: 100%;
   width: 100%;
   gap: 5px;
   padding: 20px 10px;
   transition: all .4s ease-out;
-}
-
-.castom__scroll {
-  overflow: auto;
-  scrollbar-color: #282c34;
-  scrollbar-width: thin;
-  max-height: 646px
-}
-
-.castom__scroll::-webkit-scrollbar {
-  /* 1 - скроллбар */
-  position: absolute;
-  top: 0;
-  left: 0;
-  box-sizing: border-box;
-  border-radius: 10px;
-  background: #9cd5f8;
-  width: 10px;
-}
-
-.castom__scroll::-webkit-scrollbar-button {
-  /* 2 - кнопка */
-}
-
-.castom__scroll::-webkit-scrollbar-track {
-  /* 3 - трек */
-  border-radius: 10px;
-  border: 0.6px solid grey;
-}
-
-.castom__scroll::-webkit-scrollbar-track-piece {
-  /* 4 - видимая часть трека */
-}
-
-.castom__scroll::-webkit-scrollbar-thumb {
-  /* 5 - ползунок */
-  background: #0275B1;
-  border-radius: 10px;
-  height: 20px;
-  width: 10px;
+  max-height: 513px;
 }
 
 
