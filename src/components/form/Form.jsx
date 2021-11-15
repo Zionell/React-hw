@@ -2,8 +2,10 @@ import React, {useEffect, useRef, useState} from "react";
 import "./Form.scss"
 import {v4 as uuidv4} from 'uuid';
 import {Button, TextField} from "@mui/material";
+import {useParams} from "react-router-dom";
 
 export const Form = ({onSend}) => {
+    const {id} = useParams();
 
     const [messageValue, setMessageValue] = useState('');
 
@@ -32,8 +34,8 @@ export const Form = ({onSend}) => {
 
     return (
         <form className="messages__input" onSubmit={handlerClick}>
-            <TextField inputRef={inputRef} id="outlined-basic" fullWidth  label="Написать" value={messageValue} onChange={handleChange} variant="standard" />
-            <Button variant="contained" type="submit">
+            <TextField disabled={!id} inputRef={inputRef} id="outlined-basic" fullWidth  label="Написать" value={messageValue} onChange={handleChange} variant="standard" />
+            <Button disabled={!id} variant="contained" type="submit">
                 <svg
                     width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect y="6.10352e-05" width="32" height="32" rx="4"/>
