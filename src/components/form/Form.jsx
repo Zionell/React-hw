@@ -34,7 +34,7 @@ export const Form = ({onSend}) => {
 
     return (
         <form className="messages__input" onSubmit={handlerClick}>
-            <TextField disabled={!id} inputRef={inputRef} id="outlined-basic" fullWidth  label="Написать" value={messageValue} onChange={handleChange} variant="standard" />
+            <TextField  disabled={!id} inputRef={inputRef} id="outlined-basic" fullWidth  label="Написать" value={messageValue} onChange={handleChange} variant="standard" />
             <Button disabled={!id} variant="contained" type="submit">
                 <svg
                     width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
