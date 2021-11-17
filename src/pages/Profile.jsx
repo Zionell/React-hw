@@ -2,12 +2,13 @@ import React, {useEffect, useState} from 'react';
 import "../components/style/ProfilePage.scss"
 import {Link, useNavigate, useParams} from "react-router-dom";
 import preloader from "../utils/icons8-rhombus-loader.gif"
+import {useSelector} from "react-redux";
 
 export const Profile = () => {
+    const [preload, setPreload] = useState(true);
     const [posts, setPosts] = useState([]);
-    const [user, setUser] = useState({});
-    const [preload, setPreload] = useState(true)
     const {id} = useParams();
+    const user = useSelector((store) => store.users[id ? id : 0]);
     const navigate = useNavigate();
     if (id > 10) {
         navigate("/profile", {replace: true});
@@ -31,29 +32,6 @@ export const Profile = () => {
             isMounted = false
         }
     }, [id]);
-
-    useEffect(() => {
-        let isMounted = true;
-        const fetchUserData = async () => {
-            try {
-                const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
-                const userData = await response.json();
-                if (isMounted) {
-                    setUser(userData);
-                }
-            } catch (e) {
-                console.error(e.message)
-            }
-        };
-        id < 10 ? fetchUserData() : setUser({
-            name: "User Profile",
-            email: "user@gmail.com",
-            phone: "+7-999-999-99 99"
-        });
-        return () => {
-            isMounted = false
-        }
-    }, []);
 
     return (
         <div className="profile castom__scroll">
