@@ -5,6 +5,7 @@ import {actionUsers, REMOVE_USERS_ACTION} from "../store/profile/actions";
 import {getUsers} from "../store/profile/selectors";
 import {AddNewUser} from "../components/addNewUser/AddNewUser";
 import {FormAddUser} from "../components/formAddUser/FormAddUser";
+import {actionMessages, MESSAGE_DELETE} from "../store/messages/actions";
 
 export const Home = () => {
     const usersList = useSelector(getUsers);
@@ -13,6 +14,7 @@ export const Home = () => {
 
     const removeUser = (id) => {
         dispatch(actionUsers(REMOVE_USERS_ACTION, id))
+        dispatch(actionMessages(MESSAGE_DELETE, id))
     }
 
     return (
