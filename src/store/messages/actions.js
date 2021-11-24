@@ -30,7 +30,7 @@ export const addMessageWithThunk = (id, data) => (dispatch) => {
                 console.error(e.message)
             }
         };
-        setTimeout(fetchBotAnswers(), 1000)
+        setTimeout(fetchBotAnswers, 1000)
 
     }
 }
