@@ -1,19 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ChatsList} from "../components/chatsList/ChatsList";
 import {useDispatch, useSelector} from "react-redux"
 import {actionUsers, REMOVE_USERS_ACTION} from "../store/profile/actions";
+import {getUsers} from "../store/profile/selectors";
+import {AddNewUser} from "../components/addNewUser/AddNewUser";
+import {FormAddUser} from "../components/formAddUser/FormAddUser";
+import {actionMessages, MESSAGE_DELETE} from "../store/messages/actions";
 
 export const Home = () => {
-    const users = useSelector((store) => store.users);
+    const usersList = useSelector(getUsers);
     const dispatch = useDispatch();
+    const [showModal, setShowModal] = useState(false);
 
     const removeUser = (id) => {
         dispatch(actionUsers(REMOVE_USERS_ACTION, id))
+        dispatch(actionMessages(MESSAGE_DELETE, id))
     }
 
     return (
         <div className="home castom__scroll">
-            <ChatsList remove={removeUser} users={users.filter(user => user.id !== 0)}/>
+            <ChatsList remove={removeUser} users={usersList.filter(user => user.id !== 0)}/>
+            <AddNewUser setShowModal={setShowModal}/>
+            <FormAddUser setShowModal={setShowModal} showModal={showModal}/>
         </div>
     );
 };

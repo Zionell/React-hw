@@ -3,12 +3,13 @@ import "../components/style/ProfilePage.scss"
 import {Link, useNavigate, useParams} from "react-router-dom";
 import preloader from "../utils/icons8-rhombus-loader.gif"
 import {useSelector} from "react-redux";
+import {getUser} from "../store/profile/selectors";
 
 export const Profile = () => {
     const [preload, setPreload] = useState(true);
     const [posts, setPosts] = useState([]);
     const {id} = useParams();
-    const user = useSelector((store) => store.users[id ? id : 0]);
+    const user = useSelector(getUser(id ? id : 0));
     const navigate = useNavigate();
     if (id > 10) {
         navigate("/profile", {replace: true});

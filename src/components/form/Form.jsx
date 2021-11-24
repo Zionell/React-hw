@@ -3,11 +3,14 @@ import "./Form.scss"
 import {v4 as uuidv4} from 'uuid';
 import {Button, TextField} from "@mui/material";
 import {useParams} from "react-router-dom";
+import {actionMessages, MESSAGE_ADD} from "../../store/messages/actions";
+import {useDispatch} from "react-redux";
 
-export const Form = ({onSend}) => {
+export const Form = () => {
     const {id} = useParams();
-
+    const dispatch = useDispatch();
     const [messageValue, setMessageValue] = useState('');
+    const inputRef=useRef();
 
     const handleChange = e => {
         setMessageValue(e.target.value)
@@ -21,12 +24,10 @@ export const Form = ({onSend}) => {
 
     const handlerClick = event => {
         event.preventDefault();
-        onSend(newMessage)
+        dispatch(actionMessages(MESSAGE_ADD, {message: newMessage, id: id}))
         setMessageValue('')
         inputRef.current?.focus();
     }
-
-    const inputRef=useRef()
 
     useEffect(() => {
         inputRef.current?.focus();

@@ -1,7 +1,7 @@
-import {REMOVE_USERS_ACTION, USERS_ACTION} from "./actions";
+import {ADD_USERS_ACTION, REMOVE_USERS_ACTION, USERS_ACTION} from "./actions";
 
 const initialState = {
-    users: [{
+    usersList: [{
         id: 0,
         name: "User Profile",
         email: "user@gmail.com",
@@ -15,12 +15,17 @@ export const reducerUsers = (state = initialState, action) => {
         case USERS_ACTION:
             return {
                 ...state,
-                users: [...state.users, ...payload.data]
+                usersList: [...state.usersList, ...payload]
             }
         case REMOVE_USERS_ACTION:
             return {
                 ...state,
-                users: state.users.filter(user => user.id !== payload.data),
+                usersList: state.usersList.filter(user => user.id !== payload),
+            }
+        case ADD_USERS_ACTION:
+            return {
+                ...state,
+                usersList: [...state.usersList, payload],
             }
         default:
             return state
