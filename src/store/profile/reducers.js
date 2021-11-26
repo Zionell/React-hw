@@ -1,4 +1,4 @@
-import {ADD_USERS_ACTION, REMOVE_USERS_ACTION, USERS_ACTION} from "./actions";
+import {ADD_USERS_ACTION, PRELOAD_ACTION, RELOAD_ACTION, REMOVE_USERS_ACTION, USERS_ACTION} from "./actions";
 
 const initialState = {
     usersList: [{
@@ -6,7 +6,9 @@ const initialState = {
         name: "User Profile",
         email: "user@gmail.com",
         phone: "+7-999-999-99 99"
-    }]
+    }],
+    preloader: false,
+    reload: false
 }
 
 export const reducerUsers = (state = initialState, action) => {
@@ -26,6 +28,16 @@ export const reducerUsers = (state = initialState, action) => {
             return {
                 ...state,
                 usersList: [...state.usersList, payload],
+            }
+        case PRELOAD_ACTION:
+            return {
+                ...state,
+                preloader: payload,
+            }
+        case RELOAD_ACTION:
+            return {
+                ...state,
+                reload: payload,
             }
         default:
             return state
