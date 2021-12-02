@@ -1,26 +1,27 @@
 import React, {useState} from 'react';
-import style from './FormAddUser.module.scss'
+import style from './FormUser.module.scss'
+import {getUserRefById} from "../../firebase";
+import {set} from "firebase/database";
 import {useDispatch, useSelector} from "react-redux";
-import {actionUsers, ADD_USERS_ACTION} from "../../store/profile/actions";
-import {getUserId} from "../../store/profile/selectors";
-import {actionMessages, MESSAGE_PLACE_ADD} from "../../store/messages/actions";
+import {getUserID} from "../../store/user/selectors";
+import {actionUser, SET_USER_NAME} from "../../store/user/actions";
 
-export const FormAddUser = ({showModal, setShowModal}) => {
+export const FormUser = ({showModal, setShowModal}) => {
+    const dispatch=useDispatch();
     const [newUserName, setNewUserName] = useState('');
     const [newUserPhone, setNewUserPhone] = useState('');
     const [newUserEmail, setNewUserEmail] = useState('');
-    const dispatch = useDispatch();
-    let userId = useSelector(getUserId)
+    const userId = useSelector(getUserID)
     const handleSubmit = (e) => {
         e.preventDefault();
-        let id = ++userId
-        dispatch(actionMessages(MESSAGE_PLACE_ADD, id))
-        dispatch(actionUsers(ADD_USERS_ACTION, {
-            id: id,
+        let user = {
+            id: userId,
             name: newUserName,
-            email: newUserPhone,
-            phone: newUserEmail
-        }))
+            email: newUserEmail,
+            phone: newUserPhone
+        }
+        set(getUserRefById(userId), user);
+        dispatch(actionUser(SET_USER_NAME,newUserName))
         setShowModal(false)
     };
     return (

@@ -4,13 +4,17 @@ import {v4 as uuidv4} from 'uuid';
 import {Button, TextField} from "@mui/material";
 import {useParams} from "react-router-dom";
 import {actionMessages, MESSAGE_ADD} from "../../store/messages/actions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {push} from "firebase/database";
+import {getChatMsgsRefById, getChatRefById} from "../../firebase";
+import {getUserName} from "../../store/user/selectors";
 
 export const Form = () => {
     const {id} = useParams();
     const dispatch = useDispatch();
     const [messageValue, setMessageValue] = useState('');
-    const inputRef=useRef();
+    const inputRef = useRef();
+    const userName = useSelector(getUserName)
 
     const handleChange = e => {
         setMessageValue(e.target.value)
@@ -18,13 +22,14 @@ export const Form = () => {
 
     const newMessage = {
         text: messageValue,
-        author: "user",
+        name: userName ? userName : "Anonymous",
         id: uuidv4()
     }
 
     const handlerClick = event => {
         event.preventDefault();
-        dispatch(actionMessages(MESSAGE_ADD, {message: newMessage, id: id}))
+        push(getChatMsgsRefById(id), newMessage);
+        // dispatch(actionMessages(MESSAGE_ADD, {message: newMessage, id: id}))
         setMessageValue('')
         inputRef.current?.focus();
     }
@@ -35,7 +40,8 @@ export const Form = () => {
 
     return (
         <form className="messages__input" onSubmit={handlerClick}>
-            <TextField  disabled={!id} inputRef={inputRef} id="outlined-basic" fullWidth  label="Написать" value={messageValue} onChange={handleChange} variant="standard" />
+            <TextField disabled={!id} inputRef={inputRef} id="outlined-basic" fullWidth label="Написать"
+                       value={messageValue} onChange={handleChange} variant="standard"/>
             <Button disabled={!id} variant="contained" type="submit">
                 <svg
                     width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">

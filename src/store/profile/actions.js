@@ -1,3 +1,6 @@
+import {onValue} from "firebase/database";
+import {userRef} from "../../firebase";
+
 export const USERS_ACTION = "USERS_ACTION"
 export const REMOVE_USERS_ACTION = "REMOVE_USERS_ACTION"
 export const ADD_USERS_ACTION = "ADD_USERS_ACTION"
@@ -17,14 +20,20 @@ export const actionLoadUsers = (type, data) => {
     }
 }
 
-export const addUsersWithThunk = () => (dispatch) => {
+export const addUsersWithThunk = (userId) => (dispatch) => {
     dispatch(actionLoadUsers(PRELOAD_ACTION, true))
     dispatch(actionLoadUsers(RELOAD_ACTION, false))
     const fetchData = async () => {
         try {
-            const response = await fetch("https://jsonplaceholder.typicode.com/users");
-            const result = await response.json();
-            dispatch(actionUsers(USERS_ACTION, result))
+            await onValue(userRef, (snapshot) => {
+                const userData = snapshot.val();
+                if (!!userData) {
+                    const users = Object.keys(userData).filter(obj => obj !== `user_${userId}`).map(obj => {
+                        return userData[obj]
+                    })
+                    dispatch(actionUsers(USERS_ACTION, users))
+                }
+            });
         } catch (e) {
             dispatch(actionLoadUsers(RELOAD_ACTION, true))
             console.error(e.message)

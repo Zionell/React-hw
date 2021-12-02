@@ -13,7 +13,7 @@ export const actionMessages = (type, data) => {
 }
 
 export const addMessageWithThunk = (id, data) => (dispatch) => {
-    if (id && data.length > 0 && data[data.length - 1].author === "user") {
+    if (data && id && data.length > 0 && data[data.length - 1].author === "user") {
         const fetchBotAnswers = async () => {
             try {
                 const response = await fetch("https://geek-jokes.sameerkumar.website/api?format=json");

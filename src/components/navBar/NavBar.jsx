@@ -8,7 +8,7 @@ export const NavBar = () => {
         <nav className="nav">
             <ul className="nav__list">
                 <li className="nav__item">
-                    <NavLink className="nav__link" to="/">
+                    <NavLink className="nav__link" to="/home">
                         <HomeSvg/>
                     </NavLink>
                 </li>

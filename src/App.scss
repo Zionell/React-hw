@@ -64,6 +64,13 @@
     margin: 0 auto;
 }
 
+.home {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
 .reloader{
     color: black;
     display: flex;

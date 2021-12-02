@@ -5,7 +5,7 @@ export const Error = () => {
     return (
         <div className="error">
             <h3>Такой страницы не существует</h3>
-            <Link to="/">На главную</Link>
+            <Link to="/home">На главную</Link>
         </div>
     );
 };
