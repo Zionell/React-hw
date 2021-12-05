@@ -22,7 +22,6 @@ export const ChatsList = () => {
     const handleReload = () => {
         dispatch(getChatsWithThunk)
     }
-    console.log(chats)
     const chatsList = chats.map(chat => {
         return (
             <li className='chats__item' key={chat.chat_id}>
