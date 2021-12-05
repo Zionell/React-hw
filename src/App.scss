@@ -60,3 +60,14 @@
     height: 700px;
 }
 
+.preloader {
+    margin: 0 auto;
+}
+
+.reloader{
+    color: black;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}

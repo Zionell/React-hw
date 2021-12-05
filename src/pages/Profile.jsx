@@ -1,37 +1,30 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import "../components/style/ProfilePage.scss"
 import {Link, useNavigate, useParams} from "react-router-dom";
 import preloader from "../utils/icons8-rhombus-loader.gif"
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getUser} from "../store/profile/selectors";
+import {getPosts, getPreloaderPosts, getReloaderPosts} from "../store/posts/selectors";
+import {addPostsWithThunk} from "../store/posts/actions";
 
 export const Profile = () => {
-    const [preload, setPreload] = useState(true);
-    const [posts, setPosts] = useState([]);
+    const dispatch = useDispatch();
+    const preload = useSelector(getPreloaderPosts)
+    const reload = useSelector(getReloaderPosts)
+    const posts = useSelector(getPosts)
     const {id} = useParams();
     const user = useSelector(getUser(id ? id : 0));
     const navigate = useNavigate();
     if (id > 10) {
         navigate("/profile", {replace: true});
     }
+
+    const handleReload = () => {
+        dispatch(addPostsWithThunk())
+    }
+
     useEffect(() => {
-        let isMounted = true;
-        const fetchPosts = async () => {
-            try {
-                const responsePosts = await fetch(`https://jsonplaceholder.typicode.com/posts?${id ? 'userId=' + id : 'id100'}`);
-                const result = await responsePosts.json();
-                if (isMounted) {
-                    setPosts(result);
-                    setPreload(false)
-                }
-            } catch (e) {
-                console.error(e.message)
-            }
-        };
-        fetchPosts();
-        return () => {
-            isMounted = false
-        }
+        dispatch(addPostsWithThunk(id))
     }, [id]);
 
     return (
@@ -47,7 +40,10 @@ export const Profile = () => {
             </div>
             <div className="posts">
                 <h3 className="posts__title">Посты</h3>
-                {preload && <img className="posts__preload" src={preloader} alt="preloader"/>}
+                {preload && <img className="preloader" src={preloader} alt="preloader"/>}
+                {reload && <div className='reloader'>Произошла ошибка
+                    <button onClick={handleReload}>Обновить</button>
+                </div>}
                 {
                     posts.map(post => {
                         return (<div className="posts__item" key={post.id}>
