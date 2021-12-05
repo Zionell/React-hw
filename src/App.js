@@ -2,19 +2,10 @@ import './App.scss';
 import {BrowserRouter} from "react-router-dom";
 import {AppRouter} from "./router/AppRouter";
 import {NavBar} from "./components/navBar/NavBar";
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {getUserID} from "./store/user/selectors";
-import {addUsersWithThunk} from "./store/profile/actions";
+import { useState} from "react";
 
 function App() {
     const [changeClass, setChangeClass] = useState(true);
-    const userId = useSelector(getUserID)
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(addUsersWithThunk(userId))
-    }, [])
 
     const handleClick = () => {
         setChangeClass(!changeClass)

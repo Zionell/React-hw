@@ -1,41 +1,44 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import "./ChatsList.scss"
 import preloader from "../../utils/icons8-rhombus-loader.gif";
 import {useDispatch, useSelector} from "react-redux";
-import {addUsersWithThunk} from "../../store/profile/actions";
-import {getPreloaderUsers, getReloaderUsers} from "../../store/profile/selectors";
+import {getChats} from "../../store/chats/selectors";
+import {getChatsWithThunk} from "../../store/chats/actions";
 
-export const ChatsList = ({users, remove}) => {
+export const ChatsList = () => {
     const dispatch = useDispatch();
-    const preload = useSelector(getPreloaderUsers)
-    const reload = useSelector(getReloaderUsers)
+    const chats = useSelector(getChats);
+    const [reload, setReload] = useState(false)
+
+    useEffect(() => {
+        if (!!chats) {
+            setReload(false)
+        }else{
+            setReload(true)
+        }
+    }, [chats])
 
     const handleReload = () => {
-        dispatch(addUsersWithThunk())
+        dispatch(getChatsWithThunk)
     }
-
-    const chats = users.map(user => {
+    console.log(chats)
+    const chatsList = chats.map(chat => {
         return (
-            <li className='chats__item' key={user.id}>
-                <Link className='chats__link' to={`/dialogs/${user.id}`}>
-                    {user.name}
+            <li className='chats__item' key={chat.chat_id}>
+                <Link className='chats__link' to={`/dialogs/${chat.chat_id}`}>
+                    {chat.chat_name}
                 </Link>
-                <button onClick={() => {
-                    remove(user.id)
-                }} className="chats__item-btn">X
-                </button>
             </li>
         )
     });
 
     return (
         <ul className='chats__list'>
-            {preload && <img className="preloader" src={preloader} alt="preloader"/>}
             {reload && <div className='reloader'>Произошла ошибка
                 <button onClick={handleReload}>Обновить</button>
             </div>}
-            {chats}
+            {chatsList}
         </ul>
     )
 }

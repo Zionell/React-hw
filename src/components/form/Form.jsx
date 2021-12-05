@@ -3,15 +3,13 @@ import "./Form.scss"
 import {v4 as uuidv4} from 'uuid';
 import {Button, TextField} from "@mui/material";
 import {useParams} from "react-router-dom";
-import {actionMessages, MESSAGE_ADD} from "../../store/messages/actions";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import {push} from "firebase/database";
-import {getChatMsgsRefById, getChatRefById} from "../../firebase";
 import {getUserName} from "../../store/user/selectors";
+import {getChatMsgsListRefById} from "../../firebase";
 
 export const Form = () => {
     const {id} = useParams();
-    const dispatch = useDispatch();
     const [messageValue, setMessageValue] = useState('');
     const inputRef = useRef();
     const userName = useSelector(getUserName)
@@ -20,16 +18,13 @@ export const Form = () => {
         setMessageValue(e.target.value)
     }
 
-    const newMessage = {
-        text: messageValue,
-        name: userName ? userName : "Anonymous",
-        id: uuidv4()
-    }
-
     const handlerClick = event => {
         event.preventDefault();
-        push(getChatMsgsRefById(id), newMessage);
-        // dispatch(actionMessages(MESSAGE_ADD, {message: newMessage, id: id}))
+        push(getChatMsgsListRefById(id), {
+            text: messageValue,
+            name: userName,
+            id: uuidv4()
+        });
         setMessageValue('')
         inputRef.current?.focus();
     }

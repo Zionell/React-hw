@@ -1,1 +1,0 @@
-export const getChat = id => ((state) => state.chats[`chat${id}`])
