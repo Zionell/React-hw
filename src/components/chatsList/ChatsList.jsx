@@ -19,6 +19,7 @@ export const ChatsList = () => {
         }
     }, [chats])
 
+
     const handleReload = () => {
         dispatch(getChatsWithThunk)
     }
